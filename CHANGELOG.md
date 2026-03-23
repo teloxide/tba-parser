@@ -1,5 +1,9 @@
 Format: vX.Y.Z (DD-MM-YYYY)
 
+### unreleased
+
+Fixed "24" being one of the options when other options arent numeric.
+
 # v0.6.0 (09.03.2024)
 
 Parse `icon_color` field enumeration

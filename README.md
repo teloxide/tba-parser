@@ -1,41 +1,11 @@
-# tg-bot-api
+# tba-parser
 
-[![Actions Status](https://github.com/ark0f/tg-bot-api/workflows/CI/badge.svg)](https://github.com/ark0f/tg-bot-api/actions)
-![License](https://img.shields.io/crates/l/tg_bot_api.svg)
-[![crates.io](https://img.shields.io/crates/v/tg-bot-api.svg)](https://crates.io/crates/tg-bot-api)
-[![Documentation](https://docs.rs/tg-bot-api/badge.svg)](https://docs.rs/tg-bot-api)
+This is a fork of [ENCRYPTEDFOREVER](https://github.com/ENCRYPTEDFOREVER/tg-bot-api) that is a fork of an amazing project [tg-bot-api](https://github.com/ark0f/tg-bot-api)
 
-Telegram Bot API parser in Rust
+The original project is unmaintained, so the we decided to fork it, fix some bugs and prune all of the useless for us stuff. The main goal of this fork is to allow schema checking and rust types checking, but custom_v2.json schema should be true to the original (all other schemas were removed, but if you want you can add them back yourself pretty easily).
 
-Generated schemas can be found at `ark0f.github.io/tg-bot-api`:
+## Usage
 
-OpenAPI:
+Just clone the repo and run `cargo run` for the latest schema. The schema will be at `schema/custom_v2.json` If you want schema of an earlier version of the TBA, use web archive link as an argument: `cargo run -- https://web.archive.org/web/20250817052931/https://core.telegram.org/bots/api`
 
-* [`/openapi.yml`](https://ark0f.github.io/tg-bot-api/openapi.yml) or
-  [`/openapi.json`](https://ark0f.github.io/tg-bot-api/openapi.json)
-
-Custom schema thar more convenient to work with:
-
-* [`/custom_v2.json`](https://ark0f.github.io/tg-bot-api/custom_v2.json)
-* [`/custom_v2.schema.json`](https://ark0f.github.io/tg-bot-api/custom_v2.schema.json) - JSON Schema Draft #7
-  for `/custom_v2.json`
-
-Documentation can be found at [CUSTOM_SCHEMA.md](CUSTOM_SCHEMA.md).
-
-`.min.json` suffix can be used to fetch minimized JSON. For example: `openapi.min.json`, `custom_v2.min.json`, etc.
-
-## Automatic deploy
-
-Schemas are deployed automatically every midnight at UTC+0 and when there is a new commit
-in [tdlib/telegram-bot-api](https://github.com/tdlib/telegram-bot-api).
-
-## Custom custom schema v1
-
-This is a note for old users.
-
-Schema still remains and updates at old URLs as earlier:
-
-* [`/custom.json`](https://ark0f.github.io/tg-bot-api/custom.json)
-* [`/custom.schema.json`](https://ark0f.github.io/tg-bot-api/custom.schema.json)
-
-See [v2 changes](V2_CHANGES.md) for more details.
+Documentation on the schema can be found at [CUSTOM_SCHEMA.md](CUSTOM_SCHEMA.md).

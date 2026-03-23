@@ -283,20 +283,31 @@ impl Type {
             Some((min, max))
         })?;
         let one_of = sentence::parse_type_custom(Pattern::OneOf, description, |sentence| {
-            Some(
-                sentence
-                    .parts()
+            let mut one_of = sentence
+                .parts()
+                .iter()
+                .filter(|part| {
+                    part.has_quotes()
+                        || part.is_italic()
+                        || part.as_inner().chars().all(|c| c.is_ascii_digit())
+                })
+                .map(|part| part.as_inner())
+                .cloned()
+                .dedup()
+                .collect::<Vec<_>>();
+
+            let is_everything_numeric =
+                one_of.iter().all(|w| w.chars().all(|c| c.is_ascii_digit()));
+
+            if !is_everything_numeric {
+                one_of = one_of
                     .iter()
-                    .filter(|part| {
-                        part.has_quotes()
-                            || part.is_italic()
-                            || part.as_inner().chars().all(|c| c.is_ascii_digit())
-                    })
-                    .map(|part| part.as_inner())
+                    .filter(|w| !w.chars().all(|c| c.is_ascii_digit()))
                     .cloned()
-                    .dedup()
-                    .collect::<Vec<_>>(),
-            )
+                    .collect();
+            }
+
+            Some(one_of)
         })?;
 
         let (min, max) = if let Some((min, max)) = min_max {
@@ -419,6 +430,8 @@ impl Type {
             Type::Or(types) => types.iter().any(Self::maybe_file_to_send),
             Type::Array(ty) => ty.maybe_file_to_send(),
             // Kinda bad, but the alternative is hardcoding every value
+            // Another alternative is to store every type's description and use it
+            // Because Bot API docs are inconsitent with it's types
             Type::Object(object) => object.starts_with("Input") && object != "InputPollOption",
         }
     }
@@ -489,7 +502,10 @@ pub enum MethodArgs {
 
 impl MethodArgs {
     fn new(args: Vec<Argument>) -> Self {
-        if args.iter().any(|arg| arg.kind.maybe_file_to_send()) {
+        if args
+            .iter()
+            .any(|arg| arg.is_file_to_upload_according_to_desc() || arg.kind.maybe_file_to_send())
+        {
             Self::WithMultipart(args)
         } else if args.is_empty() {
             Self::No
@@ -505,6 +521,13 @@ pub struct Argument {
     pub kind: Type,
     pub required: bool,
     pub description: String,
+}
+
+impl Argument {
+    /// This is more reliable than checking the type
+    fn is_file_to_upload_according_to_desc(&self) -> bool {
+        self.description.contains("multipart/form-data")
+    }
 }
 
 fn make_url_from_fragment(fragment: String) -> String {
