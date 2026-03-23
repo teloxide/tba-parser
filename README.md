@@ -6,6 +6,6 @@ The original project is unmaintained, so the we decided to fork it, fix some bug
 
 ## Usage
 
-Just clone the repo and run `cargo run` for the latest schema. If you want schema that is earlier, use web archive link as an argument: `cargo run -- https://web.archive.org/web/20250817052931/https://core.telegram.org/bots/api`
+Just clone the repo and run `cargo run` for the latest schema. The schema will be at `schema/custom_v2.json` If you want schema of an earlier version of the TBA, use web archive link as an argument: `cargo run -- https://web.archive.org/web/20250817052931/https://core.telegram.org/bots/api`
 
 Documentation on the schema can be found at [CUSTOM_SCHEMA.md](CUSTOM_SCHEMA.md).

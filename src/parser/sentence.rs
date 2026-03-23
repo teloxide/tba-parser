@@ -257,19 +257,14 @@ impl PartialEq<&str> for Part {
     }
 }
 
-#[derive(Debug, Clone, Hash, PartialEq, Eq)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq, Default)]
 enum PartKind {
+    #[default]
     Word,
     Link(String),
     Bold,
     Italic,
     Code,
-}
-
-impl Default for PartKind {
-    fn default() -> Self {
-        Self::Word
-    }
 }
 
 #[derive(Debug, Clone, PartialEq)]

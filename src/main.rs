@@ -13,10 +13,8 @@ pub use parser::{
 use serde::Serialize;
 use std::{fs, path::PathBuf};
 
-pub const CORE_TELEGRAM_URL: &str =
-    "https://core.telegram.org";
-pub const BOT_API_DOCS_URL: &str =
-    "https://core.telegram.org/bots/api";
+pub const CORE_TELEGRAM_URL: &str = "https://core.telegram.org";
+pub const BOT_API_DOCS_URL: &str = "https://core.telegram.org/bots/api";
 
 use extractor::Extractor;
 
@@ -84,7 +82,6 @@ impl Indexer {
         Ok(())
     }
 }
-
 
 fn main() -> anyhow::Result<()> {
     pretty_env_logger::init();
