@@ -1,19 +1,16 @@
 [package]
-name = "tg-bot-api"
-version = "0.6.0"
+name = "tba-parser"
+version = "0.1.0"
 authors = ["Arsenii Lyashenko <arsenylyashenko.3@gmail.com>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
 description = "Telegram Bot API parser"
-repository = "https://github.com/ark0f/tg-bot-api"
-documentation = "https://docs.rs/ark0f/tg-bot-api"
+repository = "https://github.com/teloxide/tba-parser"
+documentation = "https://github.com/teloxide/tba-parser"
 readme = "README.md"
 include = ["Cargo.toml", "LICENSE-*.md", "src/**/*"]
 keywords = ["telegram", "telegram-bot-api", "api", "parser"]
 categories = ["development-tools", "parsing"]
-
-[workspace]
-members = ["gh-pages-generator"]
 
 [dependencies]
 scraper = "0.18.1"
@@ -27,3 +24,9 @@ percent-encoding = "2.1.0"
 logos = "0.14.0"
 log = "0.4.14"
 tendril = "0.4.2"
+serde = { version = "1.0.117", features = ["derive"] }
+serde_json = "1.0.59"
+pulldown-cmark = "0.8.0"
+anyhow = "1.0.34"
+reqwest = { version = "0.10.8", features = ["blocking"] }
+pretty_env_logger = "0.4.0"
