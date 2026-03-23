@@ -283,20 +283,31 @@ impl Type {
             Some((min, max))
         })?;
         let one_of = sentence::parse_type_custom(Pattern::OneOf, description, |sentence| {
-            Some(
-                sentence
-                    .parts()
+            let mut one_of = sentence
+                .parts()
+                .iter()
+                .filter(|part| {
+                    part.has_quotes()
+                        || part.is_italic()
+                        || part.as_inner().chars().all(|c| c.is_ascii_digit())
+                })
+                .map(|part| part.as_inner())
+                .cloned()
+                .dedup()
+                .collect::<Vec<_>>();
+
+            let is_everything_numeric =
+                one_of.iter().all(|w| w.chars().all(|c| c.is_ascii_digit()));
+
+            if !is_everything_numeric {
+                one_of = one_of
                     .iter()
-                    .filter(|part| {
-                        part.has_quotes()
-                            || part.is_italic()
-                            || part.as_inner().chars().all(|c| c.is_ascii_digit())
-                    })
-                    .map(|part| part.as_inner())
+                    .filter(|w| !w.chars().all(|c| c.is_ascii_digit()))
                     .cloned()
-                    .dedup()
-                    .collect::<Vec<_>>(),
-            )
+                    .collect();
+            }
+
+            Some(one_of)
         })?;
 
         let (min, max) = if let Some((min, max)) = min_max {

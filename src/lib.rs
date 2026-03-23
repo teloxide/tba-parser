@@ -10,8 +10,8 @@ pub use parser::{
     Argument, Field, Method, MethodArgs, Object, ObjectData, ParseError, Parsed, Type,
 };
 
-pub const CORE_TELEGRAM_URL: &str = "https://core.telegram.org";
-pub const BOT_API_DOCS_URL: &str = "https://core.telegram.org/bots/api/";
+pub const CORE_TELEGRAM_URL: &str = "https://web.archive.org/web/20250817052931/https://core.telegram.org";
+pub const BOT_API_DOCS_URL: &str = "https://web.archive.org/web/20250817052931/https://core.telegram.org/bots/api";
 
 use extractor::Extractor;
 
